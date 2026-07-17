@@ -268,16 +268,15 @@ Suivre les conventions de la skill `xlsx` du projet à chaque génération :
 - Un onglet par famille de données (Trafic, SEO, Concurrence, Alertes, + Synthèse pour le mensuel) plutôt qu'un unique onglet surchargé.
 - Zéro erreur de formule tolérée avant l'envoi par email.
 
-### 10.4. Diffusion par email — Brevo (décision actée)
+### 10.4. Diffusion par email — Brevo (décision actée, limite importante découverte)
 
 **Décision** (17 juillet 2026) : l'envoi se fait via **Brevo**, pas via un connecteur Gmail. Raison : Brevo est déjà en service pour scopiom.com (SMTP via WP Mail SMTP), c'est l'outil déjà en place côté MPI Tech pour l'envoi d'emails transactionnels.
 
-- Un connecteur MCP `brevo` (`https://mcp.brevo.com/v1/brevo/mcp`) est déclaré dans ce projet mais **échoue à se connecter** à date (constat du 17/07/2026) — à diagnostiquer (ré-auth probable) avant de s'appuyer dessus.
-- **Solution de repli tant que le MCP n'est pas fiable** : script Python utilisant l'API transactionnelle Brevo (`POST /v3/smtp/email`) avec une **clé API Brevo dédiée à ce projet**, séparée de celle utilisée par WordPress pour scopiom.com. La clé doit être fournie par l'utilisateur et stockée localement (variable d'environnement ou fichier hors du dépôt git, jamais commitée).
+- Le connecteur MCP **Brevo est maintenant connecté** côté claude.ai (constat du 17/07/2026, `connector_uuid: d9a4b67a-f7b9-4654-8b3b-c2ec649a79ab`), et attaché aux deux routines cloud (§10.5).
+- **Limite importante** : ce connecteur peut **uniquement préparer un brouillon** de campagne email dans Brevo. Il ne peut **jamais envoyer ni programmer un envoi automatiquement** (restriction affichée explicitement dans sa description). Donc même connecté, il ne permet pas un envoi 100 % automatisé : chaque rapport nécessitera une validation manuelle du brouillon dans l'interface Brevo par l'utilisateur.
+- **Alternative pour un envoi vraiment automatique** : script Python utilisant l'API transactionnelle Brevo (`POST /v3/smtp/email`) avec une **clé API Brevo dédiée à ce projet** (déjà fournie par l'utilisateur le 17/07/2026, stockée dans `.env` local, jamais commitée grâce à `.gitignore`). Cette clé est locale à la machine de l'utilisateur et n'est pas accessible aux routines cloud (qui tournent dans un environnement isolé) — pour l'utiliser dans une routine, il faudrait la déclarer comme secret d'environnement cloud dans l'environnement "ScopIOM".
 
-Tant que ni le connecteur ni le script ne sont opérationnels, toute Routine planifiée peut générer le fichier `.xlsx` mais échouera à l'envoyer : à traiter avant la première exécution automatique réelle.
-
-**Blocage constaté le 18/07/2026** : Python n'est pas installé sur la machine (seuls les stubs Microsoft Store `python.exe`/`python3.exe` sont présents, non fonctionnels). Bloquant pour toute la chaîne technique du §10.3/10.4 (génération `.xlsx`, `recalc.py`, script d'envoi Brevo). Installation mise en pause à la demande de l'utilisateur — à faire avant la première génération de rapport réelle.
+**Blocage constaté le 18/07/2026** : Python n'est pas installé sur la machine locale (seuls les stubs Microsoft Store `python.exe`/`python3.exe` sont présents, non fonctionnels). Bloquant pour le script Python local. Sans effet sur les routines cloud, qui tournent dans un environnement séparé (mais dont on ignore s'il dispose de Python/openpyxl — chaque routine le vérifie et bascule en Markdown sinon, voir §10.5).
 
 ### 10.5. Automatisation (Claude Code Routines) — mise en place le 17/07/2026
 
@@ -290,7 +289,9 @@ Deux routines cloud créées via `/schedule`, chacune clonant le dépôt GitHub 
 
 ⚠️ **Le cron est fixe en UTC** : calé sur l'heure d'été. En heure d'hiver (CET, UTC+1), les rapports partiront avec 1h de décalage (9h/10h Paris au lieu de 8h/9h) tant que le cron n'est pas réajusté manuellement à l'automne.
 
-**Connecteurs MCP attachés aux deux routines à date** : `Semrush` et `Notion` uniquement (seuls connecteurs réellement actifs côté cloud lors de la création). `GA4`, `Search Console` et `Brevo` ne sont **pas encore connectés côté cloud** (à faire sur https://claude.ai/customize/connectors, différent de `claude mcp list` qui liste les connecteurs de la session locale) — une fois connectés, mettre à jour les deux routines (`/schedule`, action update) pour les attacher.
+**Connecteurs MCP attachés aux deux routines (mise à jour du 17/07/2026 au soir)** : `Semrush`, `Notion`, `Composio` (`connector_uuid: 5cab6eb4-9e18-4022-a2c7-f3557db74c55`, connecteur personnalisé ajouté via `https://connect.composio.dev/mcp`, authentifié en tant que `webmaster@mpitech.com`), `Brevo` (`connector_uuid: d9a4b67a-f7b9-4654-8b3b-c2ec649a79ab`, voir limite d'envoi au §10.4).
+
+**GA4 et Search Console n'ont pas de connecteur natif dans le répertoire claude.ai** (recherche confirmée le 17/07/2026 : rien en cherchant "Google Analytics" ni "Search Console", seuls des agrégateurs tiers payants comme Supermetrics ou Windsor.ai ressortent). La voie retenue est de passer par **Composio**, une plateforme d'intégrations qui peut exposer des toolkits Google Analytics/Search Console une fois configurés côté Composio. **Composio est connecté côté claude.ai, mais il reste à vérifier/configurer dans le dashboard Composio (dashboard.composio.dev) que les toolkits Google Analytics Data API et Search Console sont bien activés et liés au compte Google utilisé pour scopiom.com** — cette étape n'a pas été faite à date, se contenter de la connexion du connecteur ne garantit pas que ces outils précis soient disponibles. Chaque routine vérifie les outils disponibles au démarrage et signale leur absence plutôt que d'inventer des données.
 
 Chaque routine lit `CLAUDE.md` en entier au démarrage, fait la veille SEAL Systems (§7) et met à jour cette section, tente un `.xlsx` (bascule en Markdown de repli si Python/openpyxl indisponible dans l'environnement cloud — voir blocage Python noté plus haut, propre à la machine locale, pas forcément à l'environnement cloud), committe le rapport dans `reports/` sur `master`, tente l'envoi Brevo, et termine toujours par un résumé explicite de ce qui a été sauté et pourquoi plutôt que d'échouer silencieusement.
 
