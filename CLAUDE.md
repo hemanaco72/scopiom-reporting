@@ -191,7 +191,7 @@ ScopIOM est aujourd'hui le seul éditeur français à produire des ressources fr
 2. Noter s'il comble une des lacunes listées au §3 (ERP-agnostic, multisite, ordonnancement métier, RGAA...).
 3. Signaler dans le rapport hebdomadaire toute évolution qui change le rapport de force sur "output management system" ou les mots-clés du cluster concurrentiel.
 
-**Dernière vérification : 18/07/2026.** Articles constatés sur le blog SEAL Systems, du plus récent au plus ancien :
+**Dernière vérification : 17/07/2026.** Articles constatés sur le blog SEAL Systems, du plus récent au plus ancien :
 
 | Date | Titre | Angle |
 |---|---|---|
@@ -202,6 +202,12 @@ ScopIOM est aujourd'hui le seul éditeur français à produire des ressources fr
 | 01/06/2026 | Livret : Supply Chain SAP : Pourquoi la gestion des impressions est critique ? | Lead magnet (livret téléchargeable) sur la Supply Chain SAP |
 
 **Constat** : SEAL Systems a maintenant publié sur le thème S/4HANA que ScopIOM avait identifié comme priorité n°1 encore non rédigée. Le contenu SEAL reste un témoignage client ponctuel (USF Mag), pas un article evergreen optimisé SEO — la fenêtre reste ouverte pour un article ScopIOM plus complet et mieux structuré (Featured Snippet, angle ERP-agnostic), mais l'urgence a augmenté. Rythme de publication SEAL confirmé : environ toutes les 2 semaines depuis avril 2026.
+
+**Re-vérification du 17/07/2026** : aucun nouvel article depuis le 13/07/2026 (liste ci-dessus inchangée). Prochain article probable fin juillet compte tenu du rythme observé.
+
+**⚠️ Mise à jour du rapport de force sur "output management system" (requête SERP Semrush live, base FR, 17/07/2026)** : SEAL Systems n'est plus en position 1 sur ce mot-clé. **Sefas Innovation (sefasinnovation.fr) occupe désormais la position 1**, SEAL Systems recule en **position 2**. Le §3 et le snapshot du §4.4 (avril 2026) désignaient encore SEAL Systems comme le concurrent en position 1 à battre : cette donnée est obsolète, l'objectif doit être reformulé en tenant compte de Sefas Innovation en tête. Autre constat notable de cette même requête SERP : **mpitech.com (le site corporate de MPI Tech, pas scopiom.com) se positionne en position 7** avec une page `/output-management-systems-guide/`, alors que scopiom.com — le site produit dédié, pivot de toute la stratégie SEO — n'apparaît nulle part dans le top 20. Point à examiner avec l'équipe web (risque de dispersion d'autorité entre les deux domaines). Détail complet dans `reports/rapport-2026-07-06_2026-07-12.xlsx`, onglet Concurrence.
+
+**⚠️ Campagne Position Tracking Semrush toujours vide** : les deux projets Semrush existants ("ScopIOM - SEO", id 30407302, et "ScopIOM - IA", id 30404738) ont l'outil de tracking activé mais aucune campagne de suivi de mots-clés n'y est configurée (0 mot-clé cible dans les deux). La campagne à 34 mots-clés / 6 clusters décrite au §5.4 ci-dessous n'existe donc pas concrètement dans Semrush à ce jour — à créer avant de pouvoir produire les alertes de mouvement de position semaine/semaine.
 
 ---
 
