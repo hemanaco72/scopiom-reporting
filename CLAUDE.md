@@ -142,8 +142,8 @@ Cette donnée date d'avril 2026 : à rafraîchir via le MCP SEMrush (`organic_re
 
 | Article | KD | Note |
 |---|---|---|
-| Migration SAP S/4HANA et output management | 8 | **Priorité n°1 actuelle** |
-| Output Management : définition, fonctionnement, cas d'usage DSI | 18 | 880/mois, vise à dépasser SEAL Systems |
+| Migration SAP S/4HANA et output management | 8 | **Priorité n°1 actuelle — urgence renforcée** : SEAL Systems a publié le 13/07/2026 un témoignage client sur ce thème exact (voir §7), premier contenu concurrent à l'occuper. |
+| Output Management : définition, fonctionnement, cas d'usage DSI | 18 | 880/mois, vise à dépasser SEAL Systems. SEAL a publié un article généraliste proche ("pourquoi l'Output Management fait la différence") le 15/06/2026 — vérifier s'il capte un Featured Snippet avant publication. |
 | Print vs. Output management | 12 | SEAL présent mais contenu faible |
 | Comment centraliser la gestion des impressions multisites | 9 | Featured Snippet libre |
 | Failover imprimante / haute disponibilité | 14 | Featured Snippet libre |
@@ -190,6 +190,18 @@ ScopIOM est aujourd'hui le seul éditeur français à produire des ressources fr
 1. L'analyser (angle, mots-clés visés, éventuel Featured Snippet capté).
 2. Noter s'il comble une des lacunes listées au §3 (ERP-agnostic, multisite, ordonnancement métier, RGAA...).
 3. Signaler dans le rapport hebdomadaire toute évolution qui change le rapport de force sur "output management system" ou les mots-clés du cluster concurrentiel.
+
+**Dernière vérification : 18/07/2026.** Articles constatés sur le blog SEAL Systems, du plus récent au plus ancien :
+
+| Date | Titre | Angle |
+|---|---|---|
+| 13/07/2026 | Impressions SAP : le REX d'un groupe de luxe dans l'USF Mag n°70 | Témoignage client, modernisation des impressions SAP lors d'une migration S/4HANA — **chevauche directement l'article prioritaire ScopIOM en attente (§5.2)** |
+| 29/06/2026 | Impression SAP sur sites distants sans VPN ? | Impression SAP sur sites distants sans VPN, avec REX |
+| 15/06/2026 | Output Management SAP : pourquoi un système d'Output Management fait toute la différence | Cycle de vie documentaire depuis SAP jusqu'à la diffusion — proche de l'article générique ScopIOM en attente (§5.2) |
+| 08/06/2026 | USF 2026 à Strasbourg : SEAL Systems présente ses solutions d'Output Management pour SAP | Annonce événementielle, Convention USF (14-15 octobre 2026) |
+| 01/06/2026 | Livret : Supply Chain SAP : Pourquoi la gestion des impressions est critique ? | Lead magnet (livret téléchargeable) sur la Supply Chain SAP |
+
+**Constat** : SEAL Systems a maintenant publié sur le thème S/4HANA que ScopIOM avait identifié comme priorité n°1 encore non rédigée. Le contenu SEAL reste un témoignage client ponctuel (USF Mag), pas un article evergreen optimisé SEO — la fenêtre reste ouverte pour un article ScopIOM plus complet et mieux structuré (Featured Snippet, angle ERP-agnostic), mais l'urgence a augmenté. Rythme de publication SEAL confirmé : environ toutes les 2 semaines depuis avril 2026.
 
 ---
 
@@ -256,13 +268,16 @@ Suivre les conventions de la skill `xlsx` du projet à chaque génération :
 - Un onglet par famille de données (Trafic, SEO, Concurrence, Alertes, + Synthèse pour le mensuel) plutôt qu'un unique onglet surchargé.
 - Zéro erreur de formule tolérée avant l'envoi par email.
 
-### 10.4. Diffusion par email — prérequis technique restant
+### 10.4. Diffusion par email — Brevo (décision actée)
 
-L'envoi automatique vers jda@mpitech.com nécessite un moyen d'envoi configuré dans Claude Code, **pas encore mis en place à ce stade** :
-- **Option recommandée** : connecteur MCP Gmail ajouté à Claude Code (`claude mcp add`, authentification OAuth au compte Google déjà utilisé pour GA4/Search Console).
-- **Alternative** : script Python utilisant le SMTP Brevo (déjà en service pour le site scopiom.com) avec une clé API Brevo dédiée à ce projet, séparée de celle de WordPress.
+**Décision** (17 juillet 2026) : l'envoi se fait via **Brevo**, pas via un connecteur Gmail. Raison : Brevo est déjà en service pour scopiom.com (SMTP via WP Mail SMTP), c'est l'outil déjà en place côté MPI Tech pour l'envoi d'emails transactionnels.
 
-Tant que ce point n'est pas réglé, toute Routine planifiée peut générer le fichier `.xlsx` mais échouera à l'envoyer : à traiter avant la première exécution automatique réelle.
+- Un connecteur MCP `brevo` (`https://mcp.brevo.com/v1/brevo/mcp`) est déclaré dans ce projet mais **échoue à se connecter** à date (constat du 17/07/2026) — à diagnostiquer (ré-auth probable) avant de s'appuyer dessus.
+- **Solution de repli tant que le MCP n'est pas fiable** : script Python utilisant l'API transactionnelle Brevo (`POST /v3/smtp/email`) avec une **clé API Brevo dédiée à ce projet**, séparée de celle utilisée par WordPress pour scopiom.com. La clé doit être fournie par l'utilisateur et stockée localement (variable d'environnement ou fichier hors du dépôt git, jamais commitée).
+
+Tant que ni le connecteur ni le script ne sont opérationnels, toute Routine planifiée peut générer le fichier `.xlsx` mais échouera à l'envoyer : à traiter avant la première exécution automatique réelle.
+
+**Blocage constaté le 18/07/2026** : Python n'est pas installé sur la machine (seuls les stubs Microsoft Store `python.exe`/`python3.exe` sont présents, non fonctionnels). Bloquant pour toute la chaîne technique du §10.3/10.4 (génération `.xlsx`, `recalc.py`, script d'envoi Brevo). Installation mise en pause à la demande de l'utilisateur — à faire avant la première génération de rapport réelle.
 
 ### 10.5. Automatisation (Claude Code Routines)
 
