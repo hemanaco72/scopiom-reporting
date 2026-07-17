@@ -279,15 +279,22 @@ Tant que ni le connecteur ni le script ne sont opérationnels, toute Routine pla
 
 **Blocage constaté le 18/07/2026** : Python n'est pas installé sur la machine (seuls les stubs Microsoft Store `python.exe`/`python3.exe` sont présents, non fonctionnels). Bloquant pour toute la chaîne technique du §10.3/10.4 (génération `.xlsx`, `recalc.py`, script d'envoi Brevo). Installation mise en pause à la demande de l'utilisateur — à faire avant la première génération de rapport réelle.
 
-### 10.5. Automatisation (Claude Code Routines)
+### 10.5. Automatisation (Claude Code Routines) — mise en place le 17/07/2026
 
-Deux routines séparées (cadences différentes) :
-```
-/schedule
-```
-puis décrire précisément la tâche pour chacune, en indiquant explicitement le jour/heure, le format .xlsx, la génération via les MCP `ga4`/`search-console`/`semrush`, et l'envoi à jda@mpitech.com. Nommer les routines distinctement (ex. "Rapport hebdo ScopIOM" / "Rapport mensuel ScopIOM") pour éviter toute confusion dans `/schedule list`.
+Deux routines cloud créées via `/schedule`, chacune clonant le dépôt GitHub `https://github.com/hemanaco72/scopiom-reporting` (environnement cloud "ScopIOM") à chaque exécution :
 
-**Connecteurs MCP attendus dans ce projet Claude Code** : `ga4` (Google Analytics Data/Admin API), `search-console`, `semrush`, et un connecteur d'envoi d'email (Gmail ou équivalent, voir §10.4). Vérifier leur présence avec `claude mcp list` avant de lancer une génération de rapport.
+| Routine | Cron (UTC) | Heure locale visée (Paris) | ID |
+|---|---|---|---|
+| Rapport hebdo ScopIOM | `0 6 * * 1` (chaque lundi) | 8h00 (calé sur l'heure d'été CEST) | `trig_01RAqxSkx5HxEmxh157foV5J` |
+| Rapport mensuel ScopIOM | `0 7 1 * *` (1er du mois) | 9h00 (calé sur l'heure d'été CEST) | `trig_01HphsuxMJMhfb1UfLBxmKFi` |
+
+⚠️ **Le cron est fixe en UTC** : calé sur l'heure d'été. En heure d'hiver (CET, UTC+1), les rapports partiront avec 1h de décalage (9h/10h Paris au lieu de 8h/9h) tant que le cron n'est pas réajusté manuellement à l'automne.
+
+**Connecteurs MCP attachés aux deux routines à date** : `Semrush` et `Notion` uniquement (seuls connecteurs réellement actifs côté cloud lors de la création). `GA4`, `Search Console` et `Brevo` ne sont **pas encore connectés côté cloud** (à faire sur https://claude.ai/customize/connectors, différent de `claude mcp list` qui liste les connecteurs de la session locale) — une fois connectés, mettre à jour les deux routines (`/schedule`, action update) pour les attacher.
+
+Chaque routine lit `CLAUDE.md` en entier au démarrage, fait la veille SEAL Systems (§7) et met à jour cette section, tente un `.xlsx` (bascule en Markdown de repli si Python/openpyxl indisponible dans l'environnement cloud — voir blocage Python noté plus haut, propre à la machine locale, pas forcément à l'environnement cloud), committe le rapport dans `reports/` sur `master`, tente l'envoi Brevo, et termine toujours par un résumé explicite de ce qui a été sauté et pourquoi plutôt que d'échouer silencieusement.
+
+Gérer les routines : https://claude.ai/code/routines (liste, activation/désactivation, exécution manuelle ; la suppression n'est possible que depuis cette page web).
 
 ---
 
