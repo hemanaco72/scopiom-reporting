@@ -306,6 +306,14 @@ Python est maintenant installé sur la machine locale (Python 3.12.10 via winget
 
 Chacune exécute `scripts/send_latest_report.ps1`, qui fait `git pull origin master` (récupère le rapport que la routine cloud vient de committer) puis lance `scripts/send_report_email.py`. Logs dans `logs/` (non versionné). **Limite à connaître** : ces tâches planifiées ne s'exécutent que si la machine Windows de l'utilisateur est allumée et la session ouverte à l'heure prévue — ce n'est pas une automatisation cloud-to-cloud, le PC local reste un maillon de la chaîne tant que les routines cloud n'ont pas de coffre-fort à secrets.
 
+### 10.5bis. Optimisations de temps d'exécution (18/07/2026)
+
+Les deux premiers tests réels (§10.5) ont pris environ 20-30 minutes chacun. Deux causes identifiées et corrigées :
+- **`recalc.py`/LibreOffice** : bloquait jusqu'à ~20-24 min (3 tentatives × 8 min dans le pire cas). Les prompts des deux routines limitent maintenant cette étape à **1 seule tentative, 2-3 minutes maximum**, sans retry — les formules restent standard et se calculent normalement à l'ouverture dans Excel/Sheets de toute façon.
+- **Réinstallation des paquets Python à chaque session** (`pip install requests python-dotenv openpyxl pandas`, ~30-60s perdus à chaque fois) : déplacée dans le **script de configuration** de l'environnement cloud "ScopIOM" (exécuté une fois au démarrage de la session, avant le lancement de Claude Code), donc les paquets sont déjà prêts quand la routine commence à travailler.
+
+Ces deux changements devraient ramener une exécution normale à ~5-10 minutes. À vérifier lors des prochaines exécutions réelles (prochaine hebdo : lundi 20/07, prochaine mensuelle : 1er août).
+
 ### 10.5. Automatisation (Claude Code Routines) — mise en place le 17/07/2026
 
 Deux routines cloud créées via `/schedule`, chacune clonant le dépôt GitHub `https://github.com/hemanaco72/scopiom-reporting` (environnement cloud "ScopIOM") à chaque exécution :
