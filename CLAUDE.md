@@ -278,6 +278,7 @@ Deux rapports distincts, tous deux au **format .xlsx** (pas de rapport Markdown)
   - Bilan du mois sur la veille concurrentielle (§7) : liste consolidée des articles SEAL Systems parus dans le mois, avec analyse d'impact le cas échéant.
   - Point d'avancement sur les articles prioritaires en attente (§5.2) : lesquels sont publiés, lesquels restent à faire.
   - Un onglet "Synthèse" en première position du classeur, résumant en 5-6 lignes les faits marquants du mois avant le détail chiffré.
+  - **Graphique d'évolution du trafic (nouveau, ajouté le 18/07/2026)** : graphique natif Excel (via `openpyxl.chart`, ex. `LineChart`) dans l'onglet Trafic, montrant les **sessions mois par mois sur les 8 derniers mois calendaires complets**. Ne nécessite pas `recalc.py`. **Limite connue** : la propriété GA4 de scopiom.com a été créée le 08/06/2026, donc à ce stade un seul mois calendaire est entièrement couvert (juin 2026) — afficher tous les mois réellement disponibles depuis la création de la propriété plutôt que d'inventer ou d'omettre silencieusement des points manquants, et le signaler explicitement dans le rapport (le graphique se remplira progressivement au fil des exécutions mensuelles futures).
 
 ### 10.3. Format de sortie (.xlsx)
 
