@@ -33,7 +33,9 @@ Ce fichier est la mémoire permanente du projet `scopiom-reporting`. Chaque sess
 
 ## 3. Objectif SEO n°1
 
-**Dépasser SEAL Systems sur "output management system"** (marché français). C'est le mot-clé prioritaire absolu.
+**Dépasser Sefas Innovation et SEAL Systems sur "output management system"** (marché français). C'est le mot-clé prioritaire absolu.
+
+⚠️ **Mise à jour du 18/07/2026 (voir §7 pour la source)** : la position 1 a changé depuis la rédaction initiale de cette section. **Sefas Innovation (sefasinnovation.fr) occupe désormais la position 1**, SEAL Systems est passé en position 2. mpitech.com (le site corporate MPI Tech, pas scopiom.com) apparaît en position 7 — scopiom.com, pourtant le site produit pivot de toute la stratégie, n'a toujours aucun mot-clé organique dans la base Semrush FR. L'objectif ci-dessous et le raisonnement par différenciation restent valables et s'appliquent aussi face à Sefas (voir profil concurrent §4.1, notamment le rachat par Messagepoint qui renforce l'angle souveraineté).
 
 Constat qui rend cet objectif atteignable : le territoire sémantique français est largement libre. Aucun mot-clé cible prioritaire ne dépasse KD 27, et le concurrent en position 1 tient sa place avec un seul article de blog relativement faible.
 
@@ -108,7 +110,7 @@ Légende : ✅ capacité documentée · ◐ partielle/à confirmer · ⚠️ dé
 - **Spooling** : ThinPrint, PrinterLogic.
 - **Institutionnel** : ANSSI, DINUM, AFNOR, GS1.
 
-### 4.4. Snapshot SERP le plus récent (analyse Semrush, avril 2026)
+### 4.4. Snapshot SERP le plus récent (analyse Semrush, avril 2026 — **obsolète, voir mise à jour ci-dessous**)
 
 | Concurrent | Position sur "output management system" | Trafic mensuel estimé |
 |---|---|---|
@@ -116,6 +118,8 @@ Légende : ✅ capacité documentée · ◐ partielle/à confirmer · ⚠️ dé
 | LRS | 5 | 21 visites/mois |
 | Compart | 7 | 16 visites/mois |
 | ScopIOM | absent | objectif : top 3 |
+
+**Mise à jour au 18/07/2026 (requête SERP Semrush live, confirmée aussi au §7)** : **Sefas Innovation (sefasinnovation.fr) en position 1**, **SEAL Systems en position 2**, **mpitech.com en position 7** (site corporate MPI Tech, pas scopiom.com), **scopiom.com toujours absent** du top 20 et sans aucun mot-clé organique en base Semrush FR. La table ci-dessus (avril 2026) est conservée pour l'historique mais ne doit plus être citée comme l'état actuel.
 
 Cette donnée date d'avril 2026 : à rafraîchir via le MCP SEMrush (`organic_research` / `position_tracking`) dans le rapport hebdomadaire plutôt que de se fier à ce chiffre figé.
 
@@ -161,13 +165,70 @@ Cette donnée date d'avril 2026 : à rafraîchir via le MCP SEMrush (`organic_re
 | Cas d'usage | Comment centraliser la gestion de vos impressions et flux documentaires |
 | Ressources | Output Management — définitions, guides et FAQ pour les DSI |
 
-### 5.4. Campagne de suivi en direct (SEMrush Position Tracking)
+### 5.4. Campagne de suivi Position Tracking — statut réel (corrigé le 18 juillet 2026)
 
-Une campagne active suit **34 mots-clés répartis en 6 clusters** : générique, concurrentiel, fonctionnalités, secteurs, intégrations techniques, conformité/souveraineté. Concurrents suivis : SEAL Systems, Compart, LRS, OpenText, Quadient, Ricoh, Crawford Technologies.
+⚠️ **La note qui circulait ("campagne vide, 0 mot-clé", encore présente au §7 avant cette correction) était erronée.** Vérification directe le 18/07/2026 : la campagne existe et tourne depuis le **13 juillet 2026**. Projet **"ScopIOM - SEO"** (id `30407302`), campagne Position Tracking id `5126938`, **41 mots-clés** tagués par cluster. Données réelles constatées le 18/07/2026 : visibilité 0,64 %, position moyenne 97,63, mouvements Top 3/Top 10 déjà enregistrés. Dashboard : `https://fr.semrush.com/tracking/landscape/30407302_5126938.html`.
 
-**Ne pas recopier une liste figée de ces 34 mots-clés dans ce fichier** : elle évolue. Le rapport hebdomadaire doit interroger cette campagne en direct via le MCP SEMrush (`position_tracking`) pour avoir les positions à jour.
+**Limite d'accès identifiée** : le compte `webmaster@mpitech.com` est sur l'offre **Semrush One Starter** (199 $/mois). Cette offre inclut l'accès MCP pour les outils de base (recherche de mots-clés, liste de projets), mais **pas** l'accès complet aux données de campagne Position Tracking via API, réservé à l'offre **Advanced** (549 $/mois, ex-"Business"). Conséquence : `tracking_position_organic`/`tracking_overview_organic`/`campagns` renvoient "Access denied" au MCP, alors que les appels basiques fonctionnent. Ce n'est pas un problème de permissions de compte, ne pas rechercher de ce côté.
+
+**Test API direct confirmant la limite (18/07/2026)** : `scripts/test_semrush_api.py` teste la connexion en dehors du MCP, avec une clé API dédiée stockée dans `.env` (jamais commitée). Résultats :
+- Connexion et clé valides, coût négligeable (~100 unités consommées sur 41 410 disponibles pour tout le test).
+- `management/v1/projects` fonctionne et confirme les deux projets (`ScopIOM - SEO` id 30407302, `ScopIOM - IA` id 30404738).
+- Aucun endpoint, ni sur l'API classique (`tracking_gettargets`, `tracking_position_organic` → HTTP 400 "query type not found") ni sur l'API v4 documentée (`developer.semrush.com/api/v4/` — Projects API et Local API ne couvrent pas le Position Tracking), ne permet de récupérer les mots-clés/positions de la campagne avec cette clé.
+- **Conclusion** : ce n'est pas un problème de nom d'endpoint mal deviné, la fonctionnalité n'est simplement pas exposée publiquement à ce niveau de plan. La solution retenue (lecture du dashboard via Claude in Chrome, décrite plus bas) reste la bonne approche tant que le plan Semrush n'est pas upgradé vers Advanced.
+
+**Solution retenue (sans upgrade)** : ne pas dépendre du MCP SEMrush pour les données de cette campagne. Faire lire le dashboard par **Claude in Chrome** (navigation + lecture d'écran) plutôt que par appel API — voir rappel d'action manuelle au §10.1.
+
+**Liste réelle extraite le 18 juillet 2026** (26 mots-clés sur 41 confirmés — le tableau Semrush charge les lignes par lot au scroll, cet export n'en capture qu'une partie ; les 15 restants sont à récupérer via le bouton "Copy all" de la fenêtre Keywords) :
+
+| Cluster (tag Semrush réel) | Mots-clés |
+|---|---|
+| `pilier générique` | logiciel d'ordonnancement éditique · ordonnancement éditique · solution output management · output management · logiciel output management · éditique définition |
+| `concurrentiel alternative` | alternative opentext output management · logiciel output management français · alternative seal systems · alternative quadient gmc inspire |
+| `fonctionnalités` | gestion des tables d'exploitation · routage dynamique impression multisite · gestion des files d'attente d'impression · reprise à la page impression · supervision impressions réseau · spooling documents impression |
+| `conformité souveraineté` | logiciel souverain output management · hébergement souverain éditique · solution on-premise gestion documentaire |
+| `intégrations techniques` | output management sap bc-xom · afp ipds impression mainframe · output management iseries as400 · migration sap s4hana impression · output management sap s/4hana |
+| `secteurs` | gestion impressions multisite industrie · centre éditique bancaire |
+
+⚠️ **À vérifier avant tout ajout** : ni "output management system" (720 recherches/mois, mot-clé prioritaire absolu du §3) ni "sefas" ne semblent présents dans ces 26 — ils font peut-être partie des 15 non extraits. Vérifier dans Semrush avant de dupliquer.
 
 Une deuxième campagne est prévue avec ChatGPT comme moteur de recherche, pour comparer visibilité SEO classique et visibilité IA (voir §6).
+
+### 5.5. Mots-clés supplémentaires proposés (18 juillet 2026, à ajouter par Julien)
+
+Le cluster `concurrentiel alternative` ne couvrait que 4 mots-clés (SEAL, OpenText, Quadient — ni Compart, ni LRS, ni Sefas, pourtant tous des concurrents directs, et Sefas vient de passer en position 1 sur le mot-clé prioritaire). Liste ci-dessous à coller dans Semrush (fenêtre Keywords > Tagged Keywords, format `mot-clé, tag`) :
+
+```
+output management system, pilier générique
+gestion des impressions, pilier générique
+gestion documentaire entreprise, pilier générique
+éditique, pilier générique
+workflow documentaire, pilier générique
+solution d'impression, pilier générique
+centre éditique, pilier générique
+spouler les documents, fonctionnalités
+compart docbridge, concurrentiel alternative
+alternative compart docbridge, concurrentiel alternative
+lrs vpsx, concurrentiel alternative
+alternative lrs output management, concurrentiel alternative
+sefas harmonie, concurrentiel alternative
+sefas innovation avis, concurrentiel alternative
+alternative sefas messagepoint, concurrentiel alternative
+alternative formpipe lasernet, concurrentiel alternative
+alternative objectif lune, concurrentiel alternative
+comparatif scopiom seal systems, concurrentiel alternative
+seal systems avis, concurrentiel alternative
+logiciel éditique assurance, secteurs
+output management administration publique, secteurs
+gestion impressions mutuelle, secteurs
+solution souveraine impression entreprise, conformité souveraineté
+éditeur français output management, conformité souveraineté
+intégration api rest output management, intégrations techniques
+```
+
+*(Ajout du 18/07/2026 par rapport à la liste initialement proposée : "sefas innovation avis", vu que ce concurrent est maintenant en position 1 sur le mot-clé prioritaire — pas seulement "sefas harmonie" qui ne couvrait que le nom produit.)*
+
+Une fois ajoutés : 41 → 65 mots-clés, très en dessous de la limite de 500 de l'offre Starter. Répartition visée par cluster après ajout : `pilier générique` 13, `concurrentiel alternative` 15, `fonctionnalités` 7, `conformité souveraineté` 5, `intégrations techniques` 6, `secteurs` 5.
 
 ---
 
@@ -218,7 +279,7 @@ ScopIOM est aujourd'hui le seul éditeur français à produire des ressources fr
 
 **⚠️ Mise à jour du rapport de force sur "output management system" (requête SERP Semrush live, base FR, re-confirmée le 18/07/2026)** : inchangé depuis le 17/07/2026. **Sefas Innovation (sefasinnovation.fr) occupe la position 1**, SEAL Systems reste en **position 2**. Le §3 et le snapshot du §4.4 (avril 2026) désignaient encore SEAL Systems comme le concurrent en position 1 à battre : cette donnée reste obsolète, l'objectif doit être reformulé en tenant compte de Sefas Innovation en tête. Autre constat confirmé : **mpitech.com (le site corporate de MPI Tech, pas scopiom.com) se positionne en position 7** avec une page `/output-management-systems-guide/`, alors que scopiom.com — le site produit dédié, pivot de toute la stratégie SEO — n'apparaît toujours nulle part dans le top 20 (et n'a toujours aucun mot-clé organique dans la base Semrush FR). Point à examiner avec l'équipe web (risque de dispersion d'autorité entre les deux domaines). Détail complet dans `reports/rapport-mensuel-2026-06.xlsx`, onglet Concurrence.
 
-**⚠️ Campagne Position Tracking Semrush toujours vide** : les deux projets Semrush existants ("ScopIOM - SEO", id 30407302, et "ScopIOM - IA", id 30404738) ont l'outil de tracking activé mais aucune campagne de suivi de mots-clés n'y est configurée (0 mot-clé cible dans les deux). La campagne à 34 mots-clés / 6 clusters décrite au §5.4 ci-dessous n'existe donc pas concrètement dans Semrush à ce jour — à créer avant de pouvoir produire les alertes de mouvement de position semaine/semaine.
+**Campagne Position Tracking Semrush : correction du 18/07/2026** — contrairement à ce qui était noté ici précédemment ("campagne vide, 0 mot-clé"), une vérification directe a confirmé que la campagne existe et tourne depuis le 13/07/2026 avec 41 mots-clés. Détail complet, liste des mots-clés et limite d'accès API au §5.4 — ne plus utiliser l'ancienne information "campagne vide" nulle part dans ce fichier ni dans les rapports.
 
 ---
 
@@ -265,7 +326,7 @@ Deux rapports distincts, tous deux au **format .xlsx** (pas de rapport Markdown)
   - **Trafic et audience (GA4)** : sessions, utilisateurs (nouveaux/récurrents), pages vues + top 10 pages, taux de rebond/engagement, durée moyenne d'engagement, répartition géographique (focus France), canaux d'acquisition.
   - **Graphique d'évolution du trafic (nouveau, ajouté le 18/07/2026)** : graphique natif Excel (via `openpyxl.chart`, ex. `LineChart`) dans l'onglet Trafic, montrant les **sessions semaine par semaine sur les 8 dernières semaines calendaires complètes** (lundi-dimanche), pas seulement le delta de la semaine en cours vs précédente. Ne nécessite pas `recalc.py` (le rendu du graphique ne dépend pas du moteur de calcul de formules). **Limite connue** : la propriété GA4 de scopiom.com a été créée le 08/06/2026 — tant que 8 semaines complètes d'historique ne sont pas disponibles, afficher toutes les semaines existantes depuis la création de la propriété plutôt que d'inventer ou d'omettre silencieusement des semaines manquantes, et le signaler dans le rapport.
   - **SEO (Search Console)** : top 20 requêtes (clics, impressions, CTR, position moyenne), nouvelles requêtes apparues, pages en plus forte progression/chute.
-  - **Concurrence (SEMrush)** : évolution des mots-clés de la campagne Position Tracking (alerte si mouvement > 3 positions), part de voix si disponible. **Comparatif de visibilité élargi (mise à jour du 18/07/2026)** : ne pas se limiter à SEAL Systems — comparer scopiom.com à **tous les concurrents directs listés au §4.1** (SEAL Systems, Compart, LRS, Sefas, Formpipe/Lasernet, Objectif Lune, Papyrus, OpenText, Quadient, Ricoh, Pitney Bowes, Crawford Technologies) sur le cluster concurrentiel, dans la mesure où Semrush fournit des données pour chacun. Inclure aussi systématiquement **mpitech.com** (le site corporate de l'éditeur) dans ce comparatif, à côté de scopiom.com : le §4.4/§7 a déjà révélé que mpitech.com se positionne mieux que scopiom.com sur au moins un mot-clé prioritaire, ce qui doit être suivi en continu, pas seulement signalé ponctuellement.
+  - **Concurrence (SEMrush)** : évolution des mots-clés de la campagne Position Tracking (alerte si mouvement > 3 positions), part de voix si disponible. **Comparatif de visibilité élargi (mise à jour du 18/07/2026)** : ne pas se limiter à SEAL Systems — comparer scopiom.com à **tous les concurrents directs listés au §4.1** (SEAL Systems, Compart, LRS, Sefas, Formpipe/Lasernet, Objectif Lune, Papyrus, OpenText, Quadient, Ricoh, Pitney Bowes, Crawford Technologies) sur le cluster concurrentiel, dans la mesure où Semrush fournit des données pour chacun. Inclure aussi systématiquement **mpitech.com** (le site corporate de l'éditeur) dans ce comparatif, à côté de scopiom.com : le §4.4/§7 a déjà révélé que mpitech.com se positionne mieux que scopiom.com sur au moins un mot-clé prioritaire, ce qui doit être suivi en continu, pas seulement signalé ponctuellement. ⚠️ **Action manuelle requise** : la collecte des positions de la campagne (41+ mots-clés, voir §5.4) n'est pas automatisable via le MCP SEMrush avec l'offre Starter actuelle — quelqu'un doit ouvrir `https://fr.semrush.com/tracking/landscape/30407302_5126938.html` et relever les chiffres à la main (ou via Claude in Chrome sur demande) avant chaque génération de rapport, la Routine planifiée ne peut pas le faire seule.
   - **Veille (§7)** : tout nouvel article détecté sur le blog SEAL Systems dans la semaine.
   - **Alertes automatiques** : chute de trafic > 15 % vs semaine précédente, nouvelle page en erreur 404/500, mot-clé prioritaire sorti du top 10.
 
