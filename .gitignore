@@ -1,3 +1,5 @@
 .env
 *.key
 secrets.json
+~$*.xlsx
+__pycache__/
