@@ -140,14 +140,16 @@ Cette donnée date d'avril 2026 : à rafraîchir via le MCP SEMrush (`organic_re
 
 ### 5.2. Articles blog prioritaires en attente
 
-| Article | KD | Note |
-|---|---|---|
-| Migration SAP S/4HANA et output management | 8 | **Priorité n°1 actuelle — urgence renforcée** : SEAL Systems a publié le 13/07/2026 un témoignage client sur ce thème exact (voir §7), premier contenu concurrent à l'occuper. |
-| Output Management : définition, fonctionnement, cas d'usage DSI | 18 | 880/mois, vise à dépasser SEAL Systems. SEAL a publié un article généraliste proche ("pourquoi l'Output Management fait la différence") le 15/06/2026 — vérifier s'il capte un Featured Snippet avant publication. |
-| Print vs. Output management | 12 | SEAL présent mais contenu faible |
-| Comment centraliser la gestion des impressions multisites | 9 | Featured Snippet libre |
-| Failover imprimante / haute disponibilité | 14 | Featured Snippet libre |
-| Spouler les documents | 27 | Featured Snippet libre |
+**Mise à jour du 18/07/2026 (rapport mensuel juin 2026)** : en croisant les pages vues GA4 de juin-juillet 2026, deux articles listés ci-dessous comme "en attente" apparaissent en réalité déjà **publiés** sur scopiom.com. Cette table était obsolète sur ce point — corrigée ci-dessous. La vérification directe du contenu (angle éditorial, respect des règles de rédaction §8, distinction des 3 niveaux de failover §9) n'a pas pu être faite par fetch direct (Cloudflare bloque l'accès, HTTP 503) : à confirmer manuellement à l'occasion d'une session avec accès navigateur.
+
+| Article | KD | Statut | Note |
+|---|---|---|---|
+| Migration SAP S/4HANA et output management | 8 | **PUBLIÉ** (constaté 18/07/2026) | URL `/migration-sap-s-4hana-ne-negligez-pas-loutput-management-de-vos-flux-dimpression/`, 45 pages vues GA4 sur juin-juillet 2026. Encore 0 impression Search Console (page récente / indexation en cours). SEAL Systems avait publié un témoignage client sur ce thème le 13/07/2026 (voir §7) — à comparer une fois le contenu ScopIOM vérifié. |
+| Failover imprimante / haute disponibilité | 14 | **PUBLIÉ** (constaté 18/07/2026) | URL `/failover-et-haute-disponibilite/`, 38 pages vues GA4 sur juin-juillet 2026. À vérifier que la distinction des 3 niveaux de failover (§9) y est bien respectée. |
+| Output Management : définition, fonctionnement, cas d'usage DSI | 18 | **Statut incertain** | URL `/blog/output-management-definition/` détectée mais seulement 1 page vue sur juin-juillet 2026 : probablement une ébauche ou une ancienne URL, pas un article achevé et promu. 880/mois, vise à dépasser SEAL Systems, qui a publié un article généraliste proche le 15/06/2026 — à vérifier avant de considérer cette priorité comme traitée. |
+| Print vs. Output management | 12 | En attente | Aucune URL correspondante détectée dans GA4. SEAL présent mais contenu faible. |
+| Comment centraliser la gestion des impressions multisites | 9 | En attente | Aucune URL correspondante détectée dans GA4. Featured Snippet libre. |
+| Spouler les documents | 27 | En attente | Aucune URL correspondante détectée dans GA4. Featured Snippet libre. |
 
 ### 5.3. Mapping H1 par page parente
 
@@ -191,7 +193,7 @@ ScopIOM est aujourd'hui le seul éditeur français à produire des ressources fr
 2. Noter s'il comble une des lacunes listées au §3 (ERP-agnostic, multisite, ordonnancement métier, RGAA...).
 3. Signaler dans le rapport hebdomadaire toute évolution qui change le rapport de force sur "output management system" ou les mots-clés du cluster concurrentiel.
 
-**Dernière vérification : 17/07/2026.** Articles constatés sur le blog SEAL Systems, du plus récent au plus ancien :
+**Dernière vérification : 18/07/2026 (rapport mensuel juin 2026).** Aucun nouvel article depuis le 13/07/2026. Articles constatés sur le blog SEAL Systems, du plus récent au plus ancien (liste étendue jusqu'à mi-avril 2026 à l'occasion de cette vérification) :
 
 | Date | Titre | Angle |
 |---|---|---|
@@ -200,12 +202,21 @@ ScopIOM est aujourd'hui le seul éditeur français à produire des ressources fr
 | 15/06/2026 | Output Management SAP : pourquoi un système d'Output Management fait toute la différence | Cycle de vie documentaire depuis SAP jusqu'à la diffusion — proche de l'article générique ScopIOM en attente (§5.2) |
 | 08/06/2026 | USF 2026 à Strasbourg : SEAL Systems présente ses solutions d'Output Management pour SAP | Annonce événementielle, Convention USF (14-15 octobre 2026) |
 | 01/06/2026 | Livret : Supply Chain SAP : Pourquoi la gestion des impressions est critique ? | Lead magnet (livret téléchargeable) sur la Supply Chain SAP |
+| 26/05/2026 | Gestion des impressions et diffusions SAP : Où en êtes-vous ? | Bilan/questionnement sur la maturité des dispositifs d'impression SAP |
+| 18/05/2026 | Qu'est-ce que SAP DMS ? Le module GED SAP expliqué de A à Z | GED SAP, hors périmètre Output Management pur |
+| 11/05/2026 | Comment générer des Dossiers de Fabrication SAP ? Le guide complet | Cas d'usage industriel SAP |
+| 04/05/2026 | Adobe Forms (ADS) pour SAP : une solution puissante de composition documentaire, à compléter par un Output Management certifié | Composition documentaire SAP, positionne SEAL en complément d'Adobe Forms |
+| 27/04/2026 | Pourquoi le Spool SAP natif ne suffit plus ? | Angle proche de la priorité ScopIOM "spouler les documents" (§5.2) |
+| 20/04/2026 | Comment faut-il gérer les impressions et diffusions en entreprise en 2026 ? | Article généraliste gestion des impressions |
+| 15/04/2026 | Journée des clients 2026 : Larguez les amarres — Cap sur l'avenir | Événementiel, sans angle SEO direct |
 
-**Constat** : SEAL Systems a maintenant publié sur le thème S/4HANA que ScopIOM avait identifié comme priorité n°1 encore non rédigée. Le contenu SEAL reste un témoignage client ponctuel (USF Mag), pas un article evergreen optimisé SEO — la fenêtre reste ouverte pour un article ScopIOM plus complet et mieux structuré (Featured Snippet, angle ERP-agnostic), mais l'urgence a augmenté. Rythme de publication SEAL confirmé : environ toutes les 2 semaines depuis avril 2026.
+**Bilan de juin 2026** (mois calendaire couvert par le rapport mensuel) : 4 articles publiés (01/06, 08/06, 15/06, 29/06), rythme bimensuel confirmé et inchangé depuis avril. Aucun nouvel empiètement direct sur les priorités ScopIOM restantes n'est apparu en juin (l'article du 13/07 chevauchant la priorité S/4HANA tombe en juillet, déjà journalisé le 17/07/2026).
 
-**Re-vérification du 17/07/2026** : aucun nouvel article depuis le 13/07/2026 (liste ci-dessus inchangée). Prochain article probable fin juillet compte tenu du rythme observé.
+**Constat (mis à jour le 18/07/2026)** : SEAL Systems avait publié le 13/07/2026 un témoignage client sur le thème S/4HANA. Il s'avère que ScopIOM disposait déjà, au moment de cette veille, de son propre article evergreen sur ce même thème (`/migration-sap-s-4hana-ne-negligez-pas-loutput-management-de-vos-flux-dimpression/`, voir §5.2) : la fenêtre n'était donc pas aussi ouverte qu'estimé initialement — à comparer les deux contenus (angle, structure, Featured Snippet) pour évaluer si l'article ScopIOM tient la comparaison ou nécessite un enrichissement. Rythme de publication SEAL confirmé : environ toutes les 2 semaines depuis avril 2026.
 
-**⚠️ Mise à jour du rapport de force sur "output management system" (requête SERP Semrush live, base FR, 17/07/2026)** : SEAL Systems n'est plus en position 1 sur ce mot-clé. **Sefas Innovation (sefasinnovation.fr) occupe désormais la position 1**, SEAL Systems recule en **position 2**. Le §3 et le snapshot du §4.4 (avril 2026) désignaient encore SEAL Systems comme le concurrent en position 1 à battre : cette donnée est obsolète, l'objectif doit être reformulé en tenant compte de Sefas Innovation en tête. Autre constat notable de cette même requête SERP : **mpitech.com (le site corporate de MPI Tech, pas scopiom.com) se positionne en position 7** avec une page `/output-management-systems-guide/`, alors que scopiom.com — le site produit dédié, pivot de toute la stratégie SEO — n'apparaît nulle part dans le top 20. Point à examiner avec l'équipe web (risque de dispersion d'autorité entre les deux domaines). Détail complet dans `reports/rapport-2026-07-06_2026-07-12.xlsx`, onglet Concurrence.
+**Re-vérification du 18/07/2026** (rapport mensuel juin 2026) : aucun nouvel article depuis le 13/07/2026 (liste ci-dessus inchangée). Prochain article probable fin juillet/début août compte tenu du rythme observé.
+
+**⚠️ Mise à jour du rapport de force sur "output management system" (requête SERP Semrush live, base FR, re-confirmée le 18/07/2026)** : inchangé depuis le 17/07/2026. **Sefas Innovation (sefasinnovation.fr) occupe la position 1**, SEAL Systems reste en **position 2**. Le §3 et le snapshot du §4.4 (avril 2026) désignaient encore SEAL Systems comme le concurrent en position 1 à battre : cette donnée reste obsolète, l'objectif doit être reformulé en tenant compte de Sefas Innovation en tête. Autre constat confirmé : **mpitech.com (le site corporate de MPI Tech, pas scopiom.com) se positionne en position 7** avec une page `/output-management-systems-guide/`, alors que scopiom.com — le site produit dédié, pivot de toute la stratégie SEO — n'apparaît toujours nulle part dans le top 20 (et n'a toujours aucun mot-clé organique dans la base Semrush FR). Point à examiner avec l'équipe web (risque de dispersion d'autorité entre les deux domaines). Détail complet dans `reports/rapport-mensuel-2026-06.xlsx`, onglet Concurrence.
 
 **⚠️ Campagne Position Tracking Semrush toujours vide** : les deux projets Semrush existants ("ScopIOM - SEO", id 30407302, et "ScopIOM - IA", id 30404738) ont l'outil de tracking activé mais aucune campagne de suivi de mots-clés n'y est configurée (0 mot-clé cible dans les deux). La campagne à 34 mots-clés / 6 clusters décrite au §5.4 ci-dessous n'existe donc pas concrètement dans Semrush à ce jour — à créer avant de pouvoir produire les alertes de mouvement de position semaine/semaine.
 
