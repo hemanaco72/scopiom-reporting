@@ -70,6 +70,7 @@ Angles de différenciation à exploiter systématiquement dans le contenu :
 | **Ricoh** | ProcessDirector | Japon | Très orienté centres éditiques industriels, moins orienté réseau d'agences. |
 | **Pitney Bowes** | EngageOne | USA | — |
 | **Crawford Technologies** | PRO | Canada | — |
+| **HP (Dazel / HP Output Server)** | HP Output Server (HPOS) | USA — ex-Dazel Corp (Austin, Texas), racheté par HP en 2001 | Produit **legacy** : plus activement commercialisé par HP, mais encore en support et utilisé par de grands comptes (témoignages 2024-2025 de migrations Solaris→SUSE toujours en cours). Angle de contenu fort et peu exploité : LRS et Plus Technologies ciblent déjà activement les clients "encore sous Dazel/HPOS" pour des migrations — ScopIOM peut faire de même. "dazel" seul obtient 40 recherches/mois en France, KD 0 (vérifié Semrush 18/07/2026).
 
 ### 4.1bis. Mouvement de consolidation du marché — angle éditorial à exploiter
 
@@ -179,6 +180,11 @@ Cette donnée date d'avril 2026 : à rafraîchir via le MCP SEMrush (`organic_re
 
 **Solution retenue (sans upgrade)** : ne pas dépendre du MCP SEMrush pour les données de cette campagne. Faire lire le dashboard par **Claude in Chrome** (navigation + lecture d'écran) plutôt que par appel API — voir rappel d'action manuelle au §10.1.
 
+**Architecture du pipeline (décidée le 18/07/2026)** : **Claude in Chrome ne fonctionne que dans une session interactive locale connectée au Chrome de l'utilisateur — les routines cloud (§10.5) n'ont aucun accès navigateur** (`allowed_tools` limité à Bash/Read/Write/Edit/Glob/Grep). Il est donc impossible que la lecture du dashboard Position Tracking se fasse automatiquement le lundi à 8h. Solution retenue : un **snapshot local périodique**.
+- Fichier : `data/position-tracking-latest.json`, contient la date du snapshot, les métriques globales (visibilité, position moyenne, Top 3/Top 10), et le détail des mots-clés ayant une position mesurable (la grande majorité des 64 mots-clés suivis n'a aucune position dans le top 100 à ce jour — normal vu le lancement récent de la campagne, mais à documenter, pas à cacher).
+- **Processus de rafraîchissement** : à faire manuellement en session interactive (comme celle-ci), idéalement chaque lundi matin avant 8h — naviguer vers `https://www.semrush.com/tracking/overview/{project_id}_{campaign_id}.html`, lire le tableau via Claude in Chrome, régénérer le fichier JSON, committer et pousser.
+- **Les routines cloud lisent ce fichier tel quel** (`data/position-tracking-latest.json`) pour la section Position Tracking de leur rapport, et **doivent signaler explicitement l'âge du snapshot** (`snapshot_date`) dans le rapport — ne jamais présenter une donnée vieille de plusieurs semaines comme fraîche. Si le fichier n'existe pas ou est trop ancien (> 10 jours pour le rapport hebdo), le signaler comme donnée manquante plutôt que d'improviser.
+
 **Liste réelle extraite le 18 juillet 2026** (26 mots-clés sur 41 confirmés — le tableau Semrush charge les lignes par lot au scroll, cet export n'en capture qu'une partie ; les 15 restants sont à récupérer via le bouton "Copy all" de la fenêtre Keywords) :
 
 | Cluster (tag Semrush réel) | Mots-clés |
@@ -224,11 +230,17 @@ gestion impressions mutuelle, secteurs
 solution souveraine impression entreprise, conformité souveraineté
 éditeur français output management, conformité souveraineté
 intégration api rest output management, intégrations techniques
+dazel, concurrentiel alternative
+remplacer dazel, concurrentiel alternative
+migration hp output server, concurrentiel alternative
+alternative hp output server, concurrentiel alternative
 ```
+
+*(Ajout du 18/07/2026, deuxième passe : Dazel/HP Output Server (HPOS), produit legacy racheté par HP en 2001, identifié comme angle de migration peu exploité — voir profil concurrent §4.1. Seul "dazel" a du volume mesuré (40/mois, KD 0) ; les trois variantes migration/alternative n'ont aucun volume mesuré en base Semrush FR mais restent pertinentes pour occuper ce territoire avant que LRS ou Plus Technologies ne le fassent en France.)*
 
 *(Ajout du 18/07/2026 par rapport à la liste initialement proposée : "sefas innovation avis", vu que ce concurrent est maintenant en position 1 sur le mot-clé prioritaire — pas seulement "sefas harmonie" qui ne couvrait que le nom produit.)*
 
-Une fois ajoutés : 41 → 65 mots-clés, très en dessous de la limite de 500 de l'offre Starter. Répartition visée par cluster après ajout : `pilier générique` 13, `concurrentiel alternative` 15, `fonctionnalités` 7, `conformité souveraineté` 5, `intégrations techniques` 6, `secteurs` 5.
+Une fois ajoutés : 41 → 69 mots-clés, très en dessous de la limite de 500 de l'offre Starter. Répartition visée par cluster après ajout : `pilier générique` 13, `concurrentiel alternative` 19, `fonctionnalités` 7, `conformité souveraineté` 5, `intégrations techniques` 6, `secteurs` 5.
 
 ---
 

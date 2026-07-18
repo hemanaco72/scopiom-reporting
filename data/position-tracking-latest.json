@@ -1,0 +1,64 @@
+{
+  "_comment": "Snapshot manuel de la campagne Semrush Position Tracking, lu via Claude in Chrome (pas d'acces API sur le plan Semrush actuel, cf. CLAUDE.md §5.4). A rafraichir periodiquement en session interactive locale ; les routines cloud n'ont pas d'acces navigateur et lisent ce fichier tel quel.",
+  "snapshot_date": "2026-07-18",
+  "source_url": "https://www.semrush.com/tracking/overview/30407302_5126938.html",
+  "project_id": "30407302",
+  "campaign_id": "5126938",
+  "domain": "scopiom.com",
+  "database": "France (Google) - French",
+  "period_compared": "Jul 13-18, 2026",
+  "summary": {
+    "keywords_tracked": 64,
+    "competitors_tracked": 8,
+    "visibility_pct": 0.47,
+    "visibility_delta_pct": 0.32,
+    "average_position": 96.52,
+    "average_position_delta": 2.04,
+    "estimated_traffic": 0,
+    "top3_count": 1,
+    "top3_new": 1,
+    "top3_lost": 0,
+    "top10_count": 1,
+    "top10_new": 1,
+    "top10_lost": 1
+  },
+  "narrative_summary": [
+    "Positions improved for 1 keyword and went down for 1 keyword.",
+    "The domain has 1 new keyword in the top 10 (1 keyword was lost). It also has 1 new keyword in the top 3.",
+    "Competitor lrsoutputmanagement.com has 2 keywords dropped out of the top 3."
+  ],
+  "keywords_with_measurable_position": [
+    {
+      "keyword": "scopiom.com",
+      "tag": null,
+      "position_jul13": null,
+      "position_jul18": 3,
+      "status": "new",
+      "note": "Mot-cle de marque (nom de domaine), pas un mot-cle metier."
+    },
+    {
+      "keyword": "éditeur français output management",
+      "tag": "conformité souveraineté",
+      "position_jul13": 24,
+      "position_jul18": 24,
+      "diff": 0
+    },
+    {
+      "keyword": "intégration api rest output management",
+      "tag": "intégrations techniques",
+      "position_jul13": 50,
+      "position_jul18": 50,
+      "diff": 0
+    },
+    {
+      "keyword": "logiciel souverain output management",
+      "tag": "conformité souveraineté",
+      "position_jul13": 8,
+      "position_jul18": null,
+      "status": "lost",
+      "visibility_delta_pct": -0.15
+    }
+  ],
+  "keywords_not_ranked_top100": "Les 60 autres mots-clés suivis (dont le mot-clé prioritaire absolu \"output management system\") n'ont aucune position mesurable dans le top 100 France Google au 18/07/2026 - coherent avec le constat §4.4/§7 que scopiom.com n'a pas de mot-cle organique en base Semrush.",
+  "next_refresh_needed": "A rafraichir avant chaque rapport hebdomadaire (idealement le lundi matin avant 8h) via une session interactive avec Claude in Chrome. Pas d'automatisation cloud possible pour cette etape (cf. CLAUDE.md §10.1)."
+}
