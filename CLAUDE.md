@@ -379,6 +379,14 @@ Python est maintenant installé sur la machine locale (Python 3.12.10 via winget
 
 Chacune exécute `scripts/send_latest_report.ps1`, qui fait `git pull origin master` (récupère le rapport que la routine cloud vient de committer) puis lance `scripts/send_report_email.py`. Logs dans `logs/` (non versionné). **Limite à connaître** : ces tâches planifiées ne s'exécutent que si la machine Windows de l'utilisateur est allumée et la session ouverte à l'heure prévue — ce n'est pas une automatisation cloud-to-cloud, le PC local reste un maillon de la chaîne tant que les routines cloud n'ont pas de coffre-fort à secrets.
 
+### 10.4bis. Chiffrement des clés API au repos (18/07/2026)
+
+`.env` (clés Brevo, Semrush) est exclu de git par `.gitignore` et n'a jamais été commité. En complément, une copie chiffrée `.env.encrypted` **est commitée** dans le dépôt via `scripts/vault.py` (bibliothèque `cryptography`, chiffrement symétrique Fernet) :
+- `python scripts/vault.py encrypt` : chiffre `.env` → `.env.encrypted`. Génère une clé de chiffrement si elle n'existe pas encore, stockée **délibérément en dehors du dépôt** dans `C:\Users\Julien\.scopiom-vault.key` (jamais commitée, jamais poussée).
+- `python scripts/vault.py decrypt` : restaure `.env` depuis `.env.encrypted` (utile sur une nouvelle machine, à condition d'avoir une copie de sauvegarde de la clé).
+- **Ce que ça protège** : une fuite ou un accès non autorisé au dépôt GitHub (repo rendu public par erreur, clone non autorisé) ne donne accès à aucune clé en clair.
+- **Ce que ça NE change PAS** : les routines cloud (§10.5) n'ont toujours pas accès à ces clés — ni en clair ni chiffrées, puisqu'elles n'ont ni le fichier `.env` ni la clé de déchiffrement externe au dépôt. C'est une amélioration de sécurité pour les scripts locaux (envoi email, test API), pas une solution au problème d'automatisation cloud du §5.4 (Position Tracking) — les deux sujets sont indépendants, volontairement non mélangés après discussion avec l'utilisateur le 18/07/2026.
+
 ### 10.5bis. Optimisations de temps d'exécution (18/07/2026)
 
 Les deux premiers tests réels (§10.5) ont pris environ 20-30 minutes chacun. Deux causes identifiées et corrigées :
