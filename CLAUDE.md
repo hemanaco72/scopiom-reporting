@@ -287,6 +287,12 @@ Suivre les conventions de la skill `xlsx` du projet à chaque génération :
 
 Python est maintenant installé sur la machine locale (Python 3.12.10 via winget, 18/07/2026) avec `requests`, `python-dotenv`, `openpyxl`. Le blocage noté précédemment est levé.
 
+**Automatisation complète bouclée (18/07/2026)** : deux tâches planifiées Windows relaient les routines cloud pour l'envoi effectif :
+- **"ScopIOM - Envoi rapport hebdo"** : chaque lundi 8h45 (45 min après le déclenchement de la routine cloud à 8h, pour lui laisser le temps de terminer).
+- **"ScopIOM - Envoi rapport mensuel"** : le 1er de chaque mois à 9h45 (45 min après la routine cloud à 9h).
+
+Chacune exécute `scripts/send_latest_report.ps1`, qui fait `git pull origin master` (récupère le rapport que la routine cloud vient de committer) puis lance `scripts/send_report_email.py`. Logs dans `logs/` (non versionné). **Limite à connaître** : ces tâches planifiées ne s'exécutent que si la machine Windows de l'utilisateur est allumée et la session ouverte à l'heure prévue — ce n'est pas une automatisation cloud-to-cloud, le PC local reste un maillon de la chaîne tant que les routines cloud n'ont pas de coffre-fort à secrets.
+
 ### 10.5. Automatisation (Claude Code Routines) — mise en place le 17/07/2026
 
 Deux routines cloud créées via `/schedule`, chacune clonant le dépôt GitHub `https://github.com/hemanaco72/scopiom-reporting` (environnement cloud "ScopIOM") à chaque exécution :
