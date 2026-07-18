@@ -1,19 +1,19 @@
 {
-  "_comment": "Snapshot manuel de la campagne Semrush Position Tracking, lu via Claude in Chrome (pas d'acces API sur le plan Semrush actuel, cf. CLAUDE.md §5.4). A rafraichir periodiquement en session interactive locale ; les routines cloud n'ont pas d'acces navigateur et lisent ce fichier tel quel.",
+  "_comment": "Snapshot manuel de la campagne Semrush Position Tracking, lu via Claude in Chrome (pas d'acces API sur le plan Semrush actuel, cf. CLAUDE.md §5.4). Depuis le 18/07/2026, Semrush envoie aussi automatiquement un PDF hebdomadaire (chaque lundi) a webmaster@mpitech.com en complement - la lecture de cet email pour mise a jour automatique du present fichier reste a construire (cf. CLAUDE.md §5.4). En attendant, ce fichier continue d'etre rafraichi manuellement en session interactive.",
   "snapshot_date": "2026-07-18",
   "source_url": "https://www.semrush.com/tracking/overview/30407302_5126938.html",
   "project_id": "30407302",
   "campaign_id": "5126938",
   "domain": "scopiom.com",
   "database": "France (Google) - French",
-  "period_compared": "Jul 13-18, 2026",
+  "period_compared": "Jul 13-19, 2026",
   "summary": {
     "keywords_tracked": 64,
     "competitors_tracked": 8,
-    "visibility_pct": 0.47,
-    "visibility_delta_pct": 0.32,
-    "average_position": 96.52,
-    "average_position_delta": 2.04,
+    "visibility_pct": 0.65,
+    "visibility_delta_pct": 0.50,
+    "average_position": 95.20,
+    "average_position_delta": 3.36,
     "estimated_traffic": 0,
     "top3_count": 1,
     "top3_new": 1,
@@ -23,9 +23,9 @@
     "top10_lost": 1
   },
   "narrative_summary": [
-    "Positions improved for 1 keyword and went down for 1 keyword.",
-    "The domain has 1 new keyword in the top 10 (1 keyword was lost). It also has 1 new keyword in the top 3.",
-    "Competitor lrsoutputmanagement.com has 2 keywords dropped out of the top 3."
+    "Positions improved for 2 keywords and went down for 1 keyword.",
+    "The domain has 1 new keyword in the top 3. It also has 1 new keyword in the top 10 (1 keyword was lost).",
+    "Competitor sefasinnovation.fr has 2 new keywords in the top 3."
   ],
   "keywords_with_measurable_position": [
     {
